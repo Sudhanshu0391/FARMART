@@ -1,0 +1,1 @@
+SELECT * FROM `farmers_details` ORDER BY ID DESC LIMIT 1
