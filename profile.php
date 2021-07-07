@@ -1,5 +1,5 @@
 <?php
-    include("users.php");
+    include("../users.php");
     $email=$_SESSION['email'];
 	$fid=$_SESSION['uid'];
     $profile=new users;
@@ -82,7 +82,6 @@ ul#horizontal-list {
 		display: inline;
 	}
 </style>
- 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 
 <!-- Google Fonts -->
@@ -96,8 +95,6 @@ ul#horizontal-list {
 <!-- Material Design Bootstrap -->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
-    <meta charset="utf-8">
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">     
         
 </head>
@@ -105,18 +102,16 @@ ul#horizontal-list {
 
 <div>
 <ul class="topnav" style="padding-left:50px;padding-right:30px;padding-top:0px;height:60px;">
-	<li><a  style="padding-top:20px;" href="farm_home.php">Home</a></li>
-	<li><a href="toolshow.php"style="padding-top:20px;">Tools</a></li>
-	<li><a href="wareshow.php" style="padding-top:20px;">Warehouse</a></li>
-	<li><a href="farm_contact.php" style="padding-top:20px;">Contact Us</a></li>
+	<li><a  style="padding-top:20px;" href="user_home.php">Home</a></li>
+	<li><a href="productshow.php"style="padding-top:20px;">Product</a></li>
+	<li><a href="contact.php" style="padding-top:20px;">Contact Us</a></li>
 	<li><a class="active" href="profile.php" style="padding-top:20px;">Profile</a></li>
 	<li style="float:right;padding-left:20px;padding-top:5px">
     <a  href="logout.php" class="navbar-link btn btn-info" style="text-decoration: none;font-weight: bold;color: white;height:40px;padding-top:10px">LogOut</a>
 	</li>
-	<li style="float:right;margin-top:0px;padding-top:10px"><img style="border-radius: 50%;float:none" src="img/<?php echo $img; ?>" alt="" width="40px" height="40px"></li>
+	<li style="float:right;margin-top:0px;padding-top:10px"><img style="border-radius: 50%;float:none" src="../img/<?php echo $img; ?>" alt="" width="40px" height="40px"></li>
 	
 </ul>
-
 </div>
 
 <div id="contact" class="paddsection">
@@ -125,10 +120,12 @@ ul#horizontal-list {
 <div class="row" >
 <div class="container" style="align:center">
 
-<div  class="bootstrap">
+<div style="margin-top:4.2px" class="bootstrap">
+			
             <ul class="nav nav-tabs" id="horizontal-list" style="font-size:20px;padding-right:40px;">
                 <li class="active"><a href="profile.php">Profile</a></li>
-                <li><a href="productdetails.php?page=0">Products</a></li>
+                <li><a href="tooldetails.php?page=0">Tools</a></li>
+				<li><a href="waredetails.php?page=0">Warehouse</a></li>
             </ul>
 </div>
 
@@ -141,7 +138,7 @@ ul#horizontal-list {
 </center>
 <div class="contact-details">
 <center>
-<img style="border-radius: 50%" src="img/<?php foreach ($profile->farmData as $prof){echo $prof['F_PHOTO'];}?>" alt="" width="250px" height="250px"><br>
+<img style="border-radius: 50%" src="../img/<?php echo $img?>" alt="" width="250px" height="250px"><br>
 <input type="button" id="btn1" class="btn" value="EDIT Photo" onclick="edit()" style="background-color:#D3D3D3;height:40px">
 <div id="form2" style="display:none">
 <form action="setImage.php?id=0" method="post" enctype="multipart/form-data" class="Product_detail">
@@ -163,25 +160,17 @@ ul#horizontal-list {
 		$email=$data1['email_id'];
 		$mobile=$data1['mobile'];
 	}
-	foreach($profile->farmData as $data2){
+	foreach($profile->userData as $data2){
 		$state=$data2['STATE'];
 		$city=$data2['CITY'];
 		$address=$data2['ADDRESS'];
 		$pincode=$data2['PIN_CODE'];
-		$bName=$data2['BANK_NAME'];
-		$accNo=$data2['ACC_NO'];
-		$ifsc=$data2['IFSC'];
 	}
 ?>
-<h2><b>Farmer Details</b></h2><br></center>
-<form method="post" action="farm_detail.php" enctype="multipart/form-data" class="farmer_detail">
+<h2><b>User Details</b></h2><br></center>
+<form method="post" action="user_detail.php" enctype="multipart/form-data" class="farmer_detail">
 <div class="row">
-<?php
-	if(isset($_GET['run']) && $_GET['run']=="success")
-	{
-	echo "<div style='margin-left:20%'><mark>You have successfully Updated your Detail.</mark></div></center>";
-	}
-?>
+
 <div class="col-lg-6">
 <div class="form-group">
 
@@ -260,46 +249,6 @@ ul#horizontal-list {
 	}
 	else{
 		echo "<input type='text' class='form-control' name='address' id='address' value='{$address}' placeholder='{$address}' minlength='4' />";
-	}
-?>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label for="bName" style="font-weight: bold">Bank Name</label>
-<?php
-	if($bName==Null){
-		echo "<input type='text' class='form-control' name='bName' id='bName' required placeholder='Bank Name' minlength='4' />";
-	}
-	else{
-		echo "<input type='text' class='form-control' name='bName' id='bName' value='{$bName}' placeholder='{$bName}' minlength='4' />";
-	}
-?>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label for="AccNo" style="font-weight: bold">Bank Account Number</label>
-<?php
-	if($accNo==Null){
-		echo "<input type='text' class='form-control' name='accNo' id='accNo' required placeholder='Bank Account Number' pattern='[0-9]{9,18}'/>";
-	}
-	else{
-		echo "<input type='text' class='form-control' name='accNo' id='accNo' value='{$accNo}' placeholder='{$accNo}' pattern='[0-9]{9,18}'/>";
-	}
-?>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-
-<label for="IFSC" style="font-weight: bold">IFSC Code</label>
-<?php
-	if($ifsc==Null){
-		echo "<input type='text' class='form-control' name='ifsc' id='ifsc' required placeholder='IFSC Code' pattern='^[a-zA-z]{4}[0-9]{7}$' />";
-	}
-	else{
-	echo "<input type='text' class='form-control' name='ifsc' id='ifsc' value='{$ifsc}' placeholder='$ifsc' pattern='^[a-zA-z]{4}[0-9]{7}$' required/>";
 	}
 ?>
 </div>

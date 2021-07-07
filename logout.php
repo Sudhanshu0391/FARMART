@@ -1,5 +1,5 @@
 <?php
-    header( "refresh:4;url=home.php" );
+    header( "refresh:4;url=../home.php" );
 	session_start();
 	session_destroy();
 	?>

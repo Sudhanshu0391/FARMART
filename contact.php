@@ -1,3 +1,11 @@
+<?php
+	include("../users.php");
+    $email=$_SESSION['email'];
+	$fid=$_SESSION['uid'];
+	$products=new users;
+	$img=$products->get_image($fid,$_SESSION['type']);
+
+?>
 <html>
 <head>
 <style>
@@ -12,7 +20,7 @@ background: rgb(227,162,26);
 background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 32%, rgba(0,212,255,1) 100%);
 }
 
-ul.topnav li {float: right;}
+ul.topnav li {float: left;}
 
 ul.topnav li a {
 display: block;
@@ -76,16 +84,20 @@ ul.topnav li {float: none;}
 <!-- Material Design Bootstrap -->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  
 </head>
-<body>
-
+<body style="font-size:17px">
 <div>
-<ul class="topnav">
-<li><a class="active" href="#contact">Contact Us</a></li>
-<li><a href="registration.html">Warehouse</a></li>
-<li><a href="registration.html">Products</a></li>
-<li><a href="registration.php">User Register</a></li>
-<li><a href="home.php">Home</a></li>
+<ul class="topnav" style="padding-left:50px;padding-right:30px;padding-top:0px;height:60px;">
+	<li><a  style="padding-top:20px;" href="user_home.php">Home</a></li>
+	<li><a class="active" href="productshow.php"style="padding-top:20px;">Product</a></li>
+	<li><a href="contact.php" style="padding-top:20px;">Contact Us</a></li>
+	<li><a href="profile.php" style="padding-top:20px;">Profile</a></li>
+	<li style="float:right;padding-left:20px;padding-top:5px">
+    <a  href="../logout.php" class="navbar-link btn btn-info" style="text-decoration: none;font-weight: bold;color: white;height:40px;padding-top:10px">LogOut</a>
+	</li>
+	<li style="float:right;margin-top:0px;padding-top:10px"><img style="border-radius: 50%;float:none" src="../img/<?php echo $img; ?>" alt="" width="40px" height="40px"></li>
+	
 </ul>
 </div>
 <br><br>
